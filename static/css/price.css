@@ -1,0 +1,91 @@
+/** @format */
+
+body {
+  font-family: "lato", sans-serif;
+}
+.container {
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+li {
+  border-radius: 3px;
+  padding: 25px 30px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 25px;
+}
+.table-header {
+   background: #3ca55c; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to right,
+    #b5ac49,
+    #3ca55c
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #b5ac49, #3ca55c);
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: white;
+  font-weight: 700;
+}
+.table-row {
+  background-color: #fffafa;
+  color: #2c365d;
+  box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.1);
+  font-weight: 600;
+  border-radius: 10px;
+}
+.table-row:hover {
+  background-color: #e3f6f5;
+  border-radius: 5px;
+  color: black;
+}
+.col-1 {
+  flex-basis: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.col-1 img {
+  margin-right: 10px;
+}
+.col-2 {
+  flex-basis: 13%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.col-3 {
+  flex-basis: 13%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.col-4 {
+  flex-basis: 15%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.col-5 {
+  flex-basis: 13%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.col-6 {
+  flex-basis: 13%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.col-7 {
+  flex-basis: 13%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

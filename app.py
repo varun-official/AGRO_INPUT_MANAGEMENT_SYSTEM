@@ -16,21 +16,29 @@ c=conn.cursor()
 #c.execute('CREATE TABLE FERTILIZER(FERTILIZER_ID TEXT PRIMARY KEY ,ORG_FERTILIZER TEXT NOT NULL,CHE_FERTILIZER TEXT NOT NULL,FOREIGN KEY (FERTILIZER_ID) REFERENCES SUBCROP (SUBCROP_ID) )')
 #c.execute('INSERT INTO PRICE (CROP_NAME,VARUTY,LOCATION,MARKET,MIN_PRICE,MAX_PRICE) VALUES (?,?,?,?,?,?)',('jola','Loacl','panakaje','pmarket','550','650'))
 #c.execute('ALTER TABLE USER ADD COLUMN ROLE INTEGER ')
+#c.execute('ALTER TABLE PRICE ADD COLUMN AVG_PRICE INTEGER DEFAULT 0')
+#c.execute('ALTER TABLE CROP ADD COLUMN CROP_RIMG TEXT ')
 #c.execute('UPDATE USER SET ROLE=1 WHERE Password={U}'.format(U=123))
+#c.execute("UPDATE CROP SET CROP_RIMG='coffe.jpg' WHERE CROP_ID='crop6'")
 #c.execute('CREATE TABLE NEWS(NEWS_ID INTEGER PRIMARY KEY AUTOINCREMENT,NEWS_TITLE TEXT NOT NULL,NEWS_URL TEXT NOT NULL)')
 #c.execute('DROP TABLE SUBCROP')
 #c.execute('DROP TABLE CROP')
 #c.execute('DROP TABLE PRICE')
 #c.execute('DROP TABLE SUBCROPS_FOR_CROP')
 #c.execute('DROP TABLE FERTILIZER')
-#c.execute('DROP TRIGGER ADDPRICE')
+#c.execute('DROP TRIGGER AVGPRICES')
 
+#c.execute('''CREATE TRIGGER SUMPRICE AFTER UPDATE ON PRICE 
+#     BEGIN
+#         UPDATE PRICE SET AVG_PRICE=(MIN_PRICE+MAX_PRICE)/2;
+#   END;'''
+#        )
 
-#c.execute('''CREATE TRIGGER ADDPRICE AFTER INSERT ON CROP 
-#            BEGIN 
-#          INSERT INTO PRICE (CROP_ID,CROP_IMG,CROP_NAME,VARUTY,LOCATION,MARKET,MIN_PRICE,MAX_PRICE) VALUES (cp_id,cp_img,cp_name,'LOCAL',cp_region,'','0','0');
-#          END;'''
-#           )
+#c.execute('''CREATE TRIGGER AVGPRICES AFTER UPDATE ON PRICE 
+#     BEGIN
+#         UPDATE PRICE SET AVG_PRICE=(AVG_PRICE+(MIN_PRICE+MAX_PRICE)/2)/2;
+#   END;'''
+ #       )
 
 
 @app.route('/')
@@ -44,14 +52,15 @@ def dashboard():
    c=conn.cursor()
    rows=c.execute('SELECT SUBCROP_ID,SUBCROP_NAME FROM SUBCROP')
    rows=rows.fetchall()
-   return render_template('admin_home.html',subcrop=rows)
+   return render_template('admin_home.html',subcrop=rows,role=session['role'])
 
 @app.route('/allcrop')
 def allcrop():
    conn = sqlite3.connect('FarmEasy.db')
    c=conn.cursor()
-   rows=c.execute('SELECT * FROM CROP')
+   rows=c.execute('SELECT C.*,P.AVG_PRICE FROM CROP C,PRICE P WHERE C.CROP_ID=P.CROP_ID')
    rows=rows.fetchall()
+   print(rows)
    return render_template('all_crop.html',crops=rows)
 
 @app.route('/price', methods=['GET'])
@@ -60,6 +69,7 @@ def price():
    d=conn.cursor()
    rows=d.execute('SELECT * FROM PRICE')
    rows=rows.fetchall()
+   print(rows)
    conn.commit()
    conn.close()
    if session['role']==1:
@@ -73,7 +83,7 @@ def price():
 def news():
    conn = sqlite3.connect('FarmEasy.db')
    d=conn.cursor()
-   rows=d.execute('SELECT * FROM NEWS')
+   rows=d.execute('SELECT * FROM (SELECT * FROM NEWS ORDER BY NEWS_ID DESC LIMIT 5) ORDER BY NEWS_ID DESC')
    rows=rows.fetchall()
    conn.commit()
    conn.close()

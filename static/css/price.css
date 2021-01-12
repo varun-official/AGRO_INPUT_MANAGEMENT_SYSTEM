@@ -9,6 +9,8 @@ body {
   margin-right: auto;
   padding-left: 10px;
   padding-right: 10px;
+  margin-top: 20px;
+
 }
 
 li {
@@ -55,31 +57,31 @@ li {
   align-items: center;
 }
 .col-3 {
-  flex-basis: 13%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.col-4 {
   flex-basis: 15%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
+.col-4 {
+  flex-basis: 17%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .col-5 {
-  flex-basis: 13%;
+  flex-basis: 10%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 .col-6 {
-  flex-basis: 13%;
+  flex-basis: 10%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 .col-7 {
-  flex-basis: 13%;
+  flex-basis: 10%;
   display: flex;
   justify-content: center;
   align-items: center;

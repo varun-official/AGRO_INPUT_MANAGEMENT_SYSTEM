@@ -21,7 +21,7 @@
       <div class="crop_head">
         <div class="crop_img">
           <img
-            src="../static/img/coconutree.jpg"
+            src="../static/img/{{c[9]}}"
           />
         </div>
         <div class="crop_content">
@@ -42,15 +42,17 @@
       <div class="crop_fertilizer">
         <div class="org_fertilizer">
           <h3>organic fertilizer:</h3>
-          <p>{{c[10]}}</p>
+          <p>{{c[11]}}</p>
         </div>
         <div class="chemical_fertilizer">
           <h3>chemical fertilizer:</h3>
-          <p>{{c[11]}}</p>
+          <p>{{c[12]}}</p>
         </div>
       </div>
-      <div class="crop_price">
+      <div class="crop_mprice">
         {% for s in sdes %}
+      <div class="crop_price">
+        
         <div class="accordion" id="accordionExample">
           <div class="card">
     <div class="card-header" id="headingTwo">
@@ -71,6 +73,8 @@
     </div>
   </div>
   </div>
+
+        </div>
   {% endfor %}
 
         </div>

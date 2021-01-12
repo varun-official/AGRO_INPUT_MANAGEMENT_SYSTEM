@@ -116,7 +116,12 @@ h4 {
   cursor: pointer;
 }
 
+.crop_mprice {
+  display: flex;
+  flex-direction: column;
+}
 .crop_price {
   display: flex;
   flex-direction: column;
+  margin-top: 10px;
 }

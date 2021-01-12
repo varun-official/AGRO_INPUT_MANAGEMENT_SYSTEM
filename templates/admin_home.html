@@ -21,7 +21,7 @@
     <div class="continer">
       <div class="inner_continer">
         <div class="left_continer">
-
+          {% if role==1 %}
           <div class="continer_button">
             <a href="" data-toggle="modal" data-target="#addcrop">
               <div class="inside_continer">
@@ -51,6 +51,29 @@
               </div>
             </a>
           </div>
+          {% endif %} {% if role==0 %}
+          <div class="continer_text">
+            <h1>Technology Unifying</h1>
+            <h1>The Largest</h1>
+            <h1>Community in India-</h1>
+            <h1>Farmers</h1>
+            <p>
+              Help Farmer to produce there product and 24/7 guildance are
+              available
+            </p>
+            <div class="continer_go">
+              <a href="/allcrop">
+                <div class="go_inside">
+                  <h4>Get Started <img src="https://img.icons8.com/material/35/000000/arrow.png"/></h4>
+                </div>
+              </a>
+            </div>
+          </div>
+
+          {% endif %}
+        </div>
+        <div class="right_continer">
+          <img src="../static/img/my.eps.png" alt="" />
         </div>
       </div>
       <!-- Modal -->
@@ -136,19 +159,19 @@
                     >Requried irrigation</label
                   >
                   <select class="form-control" name="crop_irrigation">
-                    <option >Drip irrigation</option>
-                    <option >Sprinkler irrigation</option>
-                    <option >Flood irrigation</option>
+                    <option>Drip irrigation</option>
+                    <option>Sprinkler irrigation</option>
+                    <option>Flood irrigation</option>
                   </select>
                 </div>
                 <div class="form-group">
                   <label for="exampleFormControlSelect1"
                     >Requried Soil Type</label
                   >
-                  <select class="form-control"  name="crop_soil">
+                  <select class="form-control" name="crop_soil">
                     <option>Red Soil</option>
-                    <option >Black or Regur Soil</option>
-                    <option >Laterite Soil</option>
+                    <option>Black or Regur Soil</option>
+                    <option>Laterite Soil</option>
                   </select>
                 </div>
                 <div class="form-group">
@@ -169,15 +192,15 @@
                   <input
                     class="form-check-input"
                     type="checkbox"
-                    value={{row[0]}}
+                    value="{{row[0]}}"
                     name="subcrop"
                   />
                   <label class="form-check-label" for="defaultCheck1">
                     {{row[1]}}
                   </label>
                 </div>
-              {% endfor %}
-  
+                {% endfor %}
+
                 <br />
                 <div class="form-group">
                   <label for="exampleFormControlTextarea1"
@@ -199,7 +222,7 @@
                     rows="6"
                   ></textarea>
                 </div>
-                  <div class="form-group">
+                <div class="form-group">
                   <button class="btn btn-primary" type="submit">Save</button>
                 </div>
               </form>
@@ -243,7 +266,6 @@
             </div>
             <div class="modal-body">
               <form action="/subcrop/add" method="POST">
-
                 <div class="form-group">
                   <label for="exampleInputPassword1">Sub-Crop Name</label>
                   <input

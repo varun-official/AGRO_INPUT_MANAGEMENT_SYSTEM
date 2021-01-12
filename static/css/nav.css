@@ -11,7 +11,8 @@ header {
   justify-content: space-between;
   align-items: center;
   padding: 20px 10%;
-  background-color: #3ca55c; /* fallback for old browsers */
+  background-color: #071a52; /* fallback for old browsers */
+  background-color: #; /* fallback for old browsers */
  
 }
 
@@ -46,7 +47,7 @@ header {
 }
 
 .nav__links li a:hover {
-  color: #0088a9;
+  color: #3ca55c;
 }
 
 .cta {
@@ -60,7 +61,8 @@ header {
 }
 
 .cta:hover {
-  background-color: rgba(0, 136, 169, 0.8);
+  color: white;
+  background-color: #3ca55c;
 }
 
 /* Mobile Nav */

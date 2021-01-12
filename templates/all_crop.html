@@ -20,7 +20,10 @@
           </div>
           <div class="crop_d">
             <h2>{{crop[1]}}</h2>
-            <h5>{{crop[7]}},{{crop[6]}}</h5>
+            <div class="crop_de">
+            <h5>{{crop[7]}}</h5>
+          <h5>{{crop[6]}}</h5>
+          </div>
           </div>
         </div>
         <div class="crop_temp">
@@ -28,7 +31,7 @@
           <h4>{{crop[5]}}°C</h4>
         </div>
         <div class="crop_bottom">
-          <h3>₹ 30/Kg</h3>
+          <h3>₹ {{crop[10]}}/Kg</h3>
           <a href="/cropdec/{{crop[0]}}">see more info-></a>
         </div>
       </div>

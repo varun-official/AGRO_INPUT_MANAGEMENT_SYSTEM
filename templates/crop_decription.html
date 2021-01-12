@@ -7,60 +7,75 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <link rel="stylesheet" href="../static/css/crop_decription.css" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   </head>
   <body>
+        <div class="bar">
+    {% include 'nav.html' %}
+</div>
+    {% for c in des %}
     <div class="main_continer">
       <div class="crop_head">
         <div class="crop_img">
           <img
-            src="https://img.icons8.com/cotton/108/000000/sweet-carrot--v1.png"
+            src="../static/img/coconutree.jpg"
           />
         </div>
         <div class="crop_content">
-          <h2><label>Crop-name:</label>Ragi</h2>
-          <h3><label>Duration:</label>8 months</h3>
-          <h3><label>Region:</label>costal of karnataka</h3>
-          <h3><label>Tempereture:</label>24°c to 34°c</h3>
-          <h3><label>Rainfall:</label>mediam</h3>
-          <h3><label>Soil Type:</label>red Soil</h3>
+          <h2><label>Crop-name:</label> {{c[1]}} </h2>
+          <h3><label>Duration:</label>{{c[3]}} months</h3>
+          <h3><label>Region:</label>{{c[4]}}</h3>
+          <h3><label>Tempereture:</label>{{c[5]}}°c</h3>
+          <h3><label>Rainfall:</label>{{c[6]}}</h3>
+          <h3><label>Soil Type:</label>{{c[7]}}</h3>
         </div>
       </div>
       <div class="crop_description">
         <h3>Description:</h3>
         <p>
-          Ragi may be grown as a hot weather crop, from May to September, using
-          long duration varieties and as a cold season crop, from November and
-          December, using early types. Ragi is monocropped in India under
-          irrigation or transplantation. Rainfed it is mostly intercropped with
-          cereals, castor bean, niger, groundnut and pulses. The most common
-          subsidiary crops grown with ragi are fieldbean (Lablab purpureus),
-          pigeon pea (Cajanus cajan), cowpea (Vigna sinensis), and niger
-          (Guizotia abysinnica). With groundnuts, ragi is the subsidiary crop.
-          Liberal manure, mainly sheep and cattle, is applied. Green manures
-          such as cowpeas, sunnhemp, artificial manures and oil cakes, have been
-          used on both irrigated and unirrigated crops. Ragi is chopped and
-          weeded at intervals of 14 days or so. The number and frequency of
-          irrigations varies with seasonal conditions.
+         {{c[8]}}
         </p>
       </div>
       <div class="crop_fertilizer">
         <div class="org_fertilizer">
-          <h2>organic fertilizer</h2>
+          <h3>organic fertilizer:</h3>
+          <p>{{c[10]}}</p>
         </div>
         <div class="chemical_fertilizer">
-          <h2>chemical fertilizer</h2>
+          <h3>chemical fertilizer:</h3>
+          <p>{{c[11]}}</p>
         </div>
       </div>
       <div class="crop_price">
-        <div class="atc_price">
-          <h3>Market Price:</h3>
-          <h1>rs 30/Kg</h1>
-        </div>
-        <div class="est_price">
-          <h3>Estimated Price:</h3>
-          <h1>rs 30/Kg</h1>
+        {% for s in sdes %}
+        <div class="accordion" id="accordionExample">
+          <div class="card">
+    <div class="card-header" id="headingTwo">
+      <h2 class="mb-0">
+        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          Subcrop can be grown {{s[1]}}
+        </button>
+      </h2>
+    </div>
+    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+      <div class="card-body">
+        <h4>Description:</h4>
+        {{s[2]}}
+        
+        <h5>Yeild per Acear: {{s[3]}}Kg</h5>
+      </div>
+      
+    </div>
+  </div>
+  </div>
+  {% endfor %}
+
         </div>
       </div>
     </div>
+    {% endfor %}
   </body>
 </html>

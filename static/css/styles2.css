@@ -136,13 +136,8 @@ form.sign-in-form {
 
 .btn {
   width: 150px;
-  background: #3ca55c; /* fallback for old browsers */
-  background: -webkit-linear-gradient(
-    to right,
-    #b5ac49,
-    #3ca55c
-  ); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #b5ac49, #3ca55c);
+  background-color: #3ca55c; /* fallback for old browsers */
+ 
   border: none;
   outline: none;
   height: 49px;

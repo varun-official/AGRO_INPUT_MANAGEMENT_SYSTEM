@@ -1,0 +1,326 @@
+<!-- @format -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="../static/css/admin_home.css" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+    />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  </head>
+  <body>
+    {% include 'nav.html' %}
+
+    <div class="continer">
+      <div class="inner_continer">
+        <div class="left_continer">
+
+          <div class="continer_button">
+            <a href="" data-toggle="modal" data-target="#addcrop">
+              <div class="inside_continer">
+                <img
+                  src="https://img.icons8.com/color/64/000000/plant-under-sun--v2.png"
+                />
+                <h2>Add Crop</h2>
+              </div>
+            </a>
+          </div>
+          <div class="continer_button">
+            <a href="" data-toggle="modal" data-target="#addsubcrop">
+              <div class="inside_continer">
+                <img
+                  src="https://img.icons8.com/color/50/000000/growing-plant.png"
+                />
+                <h2>Add Sub-Crop</h2>
+              </div>
+            </a>
+          </div>
+          <div class="continer_button">
+            <a href="/price">
+              <div class="inside_continer">
+                <img src="https://img.icons8.com/dusk/50/000000/edit--v2.png" />
+
+                <h2>Update Price</h2>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+      <!-- Modal -->
+      <div
+        class="modal fade bd-example-modal-lg"
+        id="addcrop"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="exampleModalLongTitle"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h3 class="modal-title" id="exampleModalLongTitle">Add Crop</h3>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form action="/crop/add" method="POST">
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Crop Name</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="crop_name"
+                    placeholder="crop name"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Crop Id</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="crop_id"
+                    placeholder="crop Id"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Crop Img_Url</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="crop_img"
+                    placeholder="crop Id"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Duration</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="crop_duration"
+                    placeholder="duration"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Region</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="crop_region"
+                    placeholder="Region"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Tempereture</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="crop_temp"
+                    placeholder="Tempereture"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="exampleFormControlSelect1"
+                    >Requried irrigation</label
+                  >
+                  <select class="form-control" name="crop_irrigation">
+                    <option >Drip irrigation</option>
+                    <option >Sprinkler irrigation</option>
+                    <option >Flood irrigation</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="exampleFormControlSelect1"
+                    >Requried Soil Type</label
+                  >
+                  <select class="form-control"  name="crop_soil">
+                    <option>Red Soil</option>
+                    <option >Black or Regur Soil</option>
+                    <option >Laterite Soil</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="exampleFormControlTextarea1"
+                    >Crop Description</label
+                  >
+                  <textarea
+                    class="form-control"
+                    name="crop_desc"
+                    rows="6"
+                  ></textarea>
+                </div>
+                <label for="exampleFormControlSelect1"
+                  >Add related Sub-Crop</label
+                >
+                {% for row in subcrop %}
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    value={{row[0]}}
+                    name="subcrop"
+                  />
+                  <label class="form-check-label" for="defaultCheck1">
+                    {{row[1]}}
+                  </label>
+                </div>
+              {% endfor %}
+  
+                <br />
+                <div class="form-group">
+                  <label for="exampleFormControlTextarea1"
+                    >Organic Fertilizer for Crop</label
+                  >
+                  <textarea
+                    class="form-control"
+                    name="crop_of"
+                    rows="6"
+                  ></textarea>
+                </div>
+                <div class="form-group">
+                  <label for="exampleFormControlTextarea1"
+                    >Chemical fertilizer for Crop</label
+                  >
+                  <textarea
+                    class="form-control"
+                    name="crop_cf"
+                    rows="6"
+                  ></textarea>
+                </div>
+                  <div class="form-group">
+                  <button class="btn btn-primary" type="submit">Save</button>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-dismiss="modal"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal -->
+      <div
+        class="modal fade bd-example-modal-lg"
+        id="addsubcrop"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="exampleModalLongTitle"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h3 class="modal-title" id="exampleModalLongTitle">
+                Add Sub-Crop
+              </h3>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form action="/subcrop/add" method="POST">
+
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Sub-Crop Name</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="subname"
+                    placeholder="crop name"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Sub-Crop Id</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="subid"
+                    placeholder="subcrop name"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Yield per Acer</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="yield"
+                    placeholder="yield per acer"
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="exampleFormControlTextarea1"
+                    >Sub-Crop Description</label
+                  >
+                  <textarea
+                    class="form-control"
+                    name="subdesc"
+                    rows="6"
+                  ></textarea>
+                </div>
+
+                <div class="form-group">
+                  <label for="exampleFormControlTextarea1"
+                    >Organic Fertilizer for Sub-Crop</label
+                  >
+                  <textarea
+                    class="form-control"
+                    id="exampleFormControlTextarea1"
+                    rows="6"
+                    name="subof"
+                  ></textarea>
+                </div>
+                <div class="form-group">
+                  <label for="exampleFormControlTextarea1"
+                    >Chemical fertilizer for Sub-Crop</label
+                  >
+                  <textarea
+                    class="form-control"
+                    rows="6"
+                    name="subcf"
+                  ></textarea>
+                </div>
+                <div class="form-group">
+                  <button class="btn btn-primary" type="submit">Save</button>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-dismiss="modal"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

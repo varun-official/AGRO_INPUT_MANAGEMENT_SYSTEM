@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News</title>
+    <link rel="stylesheet" href="../static/css/news.css">
+        <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="bar">
+    {% include 'nav.html' %}
+</div>
+    <div class="continer">
+
+        <div class="news_image">
+            <img src="./static/img/crop_news.jpeg" alt="">
+
+        </div>
+        <div class="news">
+            {% if role==1 %}
+            <div class="add_button">
+              <a href="" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#mynews">Add News</a>
+              </div>
+              {% endif %}
+
+            {% for row in news%}
+            <div class="news_continer">
+                <a href={{row[2]}}>{{row[1]}}</a>
+            </div>
+            {% endfor %}
+        </div>
+        <!-- Modal -->
+<div class="modal fade" id="mynews" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="exampleModalLabel">Add News</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <form action="/news/add" method="POST">
+           <div class="form-group">
+    <label for="exampleFormControlTextarea1">News Heading</label>
+    <textarea class="form-control" name="news_title" rows="3"></textarea>
+  </div>
+   <div class="form-group">
+    <label for="exampleFormControlInput1">News Link</label>
+    <input type="text" class="form-control"  name="news_url" placeholder="news link">
+  </div>
+  <div class="form-group">
+        <button type="submit" class="btn btn-primary">Save News</button>
+
+      </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+    </div>
+</body>
+</html>

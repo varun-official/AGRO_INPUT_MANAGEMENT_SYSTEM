@@ -10,34 +10,27 @@
     <div class="container">
   <ul class="responsive-table">
     <li class="table-header">
+      <div class="col col-7">Crop_id</div>
       <div class="col col-1">Crop Name</div>
       <div class="col col-2">VARUTY</div>
       <div class="col col-3">LOCATION</div>
       <div class="col col-4">MARKET</div>
       <div class="col col-5">MIN_PRICE</div>
       <div class="col col-6">MAX_PRICE</div>
-      <div class="col col-7">MODEL PRICE</div>
+      
     </li>
+    {% for cprice in crop %}
     <li class="table-row">
-      <div class="col col-1" data-label="Crop Name"><img src="https://img.icons8.com/doodle/34/000000/raspberry--v1.png"/>Ragi</div>
-      <div class="col col-2" data-label="VARUTY">local</div>
-      <div class="col col-3" data-label="LOCATION">Karnataka</div>
-      <div class="col col-4" data-label="MARKET">panakaje</div>
-      <div class="col col-5" data-label="MIN_PRICE">350</div>
-      <div class="col col-6" data-label="MAX_PRICE">850</div>
-      <div class="col col-7" data-label="MODEL PRICE">550</div>
-
+      <div class="col col-7" data-label="MODEL PRICE">{{cprice[0]}}</div>
+      <div class="col col-1" data-label="Crop Name"><img src="https://img.icons8.com/doodle/34/000000/raspberry--v1.png"/>{{ cprice[1] }}</div>
+      <div class="col col-2" data-label="VARUTY">{{ cprice[2] }}</div>
+      <div class="col col-3" data-label="LOCATION">{{cprice[3]}}</div>
+      <div class="col col-4" data-label="MARKET">{{cprice[4]}}</div>
+      <div class="col col-5" data-label="MIN_PRICE">{{cprice[5]}}</div>
+      <div class="col col-6" data-label="MAX_PRICE">{{cprice[6]}}</div>
+      
     </li>
-    <li class="table-row">
-      <div class="col col-1" data-label="Crop Name"><img src="https://img.icons8.com/doodle/34/000000/raspberry--v1.png"/>Ragi</div>
-      <div class="col col-2" data-label="VARUTY">local</div>
-      <div class="col col-3" data-label="LOCATION">Karnataka</div>
-      <div class="col col-4" data-label="MARKET">panakaje</div>
-      <div class="col col-5" data-label="MIN_PRICE">350</div>
-      <div class="col col-6" data-label="MAX_PRICE">850</div>
-      <div class="col col-7" data-label="MODEL PRICE">550</div>
-
-    </li>
+    {% endfor %}
     
 </div>
 </body>

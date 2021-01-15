@@ -43,11 +43,11 @@
             </a>
           </div>
           <div class="continer_button">
-            <a href="/price">
+            <a href="" data-toggle="modal" data-target="#addland">
               <div class="inside_continer">
                 <img src="https://img.icons8.com/dusk/50/000000/edit--v2.png" />
 
-                <h2>Update Price</h2>
+                <h2>Add Land</h2>
               </div>
             </a>
           </div>
@@ -325,6 +325,116 @@
                     rows="6"
                     name="subcf"
                   ></textarea>
+                </div>
+                <div class="form-group">
+                  <button class="btn btn-primary" type="submit">Save</button>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-dismiss="modal"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Modal -->
+      <div
+        class="modal fade bd-example-modal-lg"
+        id="addland"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="exampleModalLongTitle"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h3 class="modal-title" id="exampleModalLongTitle">
+                Add Land
+              </h3>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form action="/land/add" method="POST">
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Land Name</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="landname"
+                    placeholder="LandName"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Land image</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="landimage"
+                    placeholder="Land image"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Location</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="location"
+                    placeholder="Location"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Acres</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    name="acres"
+                    placeholder="Acres"
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="exampleFormControlTextarea1"
+                    >
+                    Land description</label
+                  >
+                  <textarea
+                    class="form-control"
+                    id="exampleFormControlTextarea1"
+                    rows="6"
+                    name="landdescription"
+                  ></textarea>
+                </div>
+                     <div class="form-group">
+                  <label for="exampleInputPassword1">Phone</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="phone"
+                    placeholder="Phone"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Price</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="price"
+                    placeholder="Price"
+                  />
                 </div>
                 <div class="form-group">
                   <button class="btn btn-primary" type="submit">Save</button>

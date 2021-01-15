@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>land</title>
+    <link rel="stylesheet" href="../static/css/land.css">
+</head>
+<body>
+  {% include 'nav.html' %}
+  <div class=""></div>
+  <div class="main">
+  <div class="left">
+  </div>
+  <div class="m_result">
+    {% for l in land %}
+     <div class="searchResult">
+      <img src="../static/img/{{l[1]}}" alt="" />
+
+      <div class="searchResult__info">
+        <div class="searchResult__infoTop">
+          <h2>{{l[2]}}</h2>
+          <h3>{{l[3]}}</h3>
+          <h3>{{l[4]}} Acre</h3>
+          <p>{{l[5]}}</p>
+          <h4>{{l[6]}}</h4>
+        </div>
+
+        <div class="searchResult__infoBottom">
+ 
+          <div class="searchResults__price">
+            <h2>₹{{l[7]}}/Acre</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+   {% endfor %}
+    </div>
+      <div class="left">
+    
+  </div>
+  </div>
+</body>
+</html>

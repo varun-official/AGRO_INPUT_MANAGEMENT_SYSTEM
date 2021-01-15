@@ -14,15 +14,19 @@ c=conn.cursor()
 #c.execute('CREATE TABLE PRICE(CROP_ID TEXT PRIMARY KEY,CROP_IMG TEXT,CROP_NAME TEXT NOT NULL,VARUTY TEXT,LOCATION TEXT,MARKET TEXT,MIN_PRICE TEXT,MAX_PRICE TEXT,FOREIGN KEY (CROP_ID) REFERENCES CROP (CROP_ID))')
 #c.execute('CREATE TABLE SUBCROP(SUBCROP_ID TEXT PRIMARY KEY ,SUBCROP_NAME TEXT NOT NULL,SUBCROP_DESC TEXT,SUBCROP_PERACER INTEGER)')
 #c.execute('CREATE TABLE FERTILIZER(FERTILIZER_ID TEXT PRIMARY KEY ,ORG_FERTILIZER TEXT NOT NULL,CHE_FERTILIZER TEXT NOT NULL,FOREIGN KEY (FERTILIZER_ID) REFERENCES SUBCROP (SUBCROP_ID) )')
+#c.execute('CREATE TABLE LAND(LAND_ID INTEGER PRIMARY KEY AUTOINCREMENT,LAND_IMG TEXT NOT NULL,TITLE TEXT NOT NULL,LOCATION TEXT NOT NULL,ACRE TEXT NOT NULL,DESC TEXT,PHONE TEXT NOT NULL,PRICE TEXT)')
 #c.execute('INSERT INTO PRICE (CROP_NAME,VARUTY,LOCATION,MARKET,MIN_PRICE,MAX_PRICE) VALUES (?,?,?,?,?,?)',('jola','Loacl','panakaje','pmarket','550','650'))
 #c.execute('ALTER TABLE USER ADD COLUMN ROLE INTEGER ')
 #c.execute('ALTER TABLE PRICE ADD COLUMN AVG_PRICE INTEGER DEFAULT 0')
 #c.execute('ALTER TABLE CROP ADD COLUMN CROP_RIMG TEXT ')
 #c.execute('UPDATE USER SET ROLE=1 WHERE Password={U}'.format(U=123))
-#c.execute("UPDATE CROP SET CROP_RIMG='coffe.jpg' WHERE CROP_ID='crop6'")
+
+# c.execute("UPDATE CROP SET CROP_RIMG='mango.jpg' WHERE CROP_ID='crop7'")
+#c.execute("UPDATE LAND SET LAND_IMG='land4.jpg' WHERE LAND_ID='4'")
 #c.execute('CREATE TABLE NEWS(NEWS_ID INTEGER PRIMARY KEY AUTOINCREMENT,NEWS_TITLE TEXT NOT NULL,NEWS_URL TEXT NOT NULL)')
 #c.execute('DROP TABLE SUBCROP')
 #c.execute('DROP TABLE CROP')
+#c.execute('DROP TABLE LAND')
 #c.execute('DROP TABLE PRICE')
 #c.execute('DROP TABLE SUBCROPS_FOR_CROP')
 #c.execute('DROP TABLE FERTILIZER')
@@ -30,15 +34,15 @@ c=conn.cursor()
 
 #c.execute('''CREATE TRIGGER SUMPRICE AFTER UPDATE ON PRICE 
 #     BEGIN
-#         UPDATE PRICE SET AVG_PRICE=(MIN_PRICE+MAX_PRICE)/2;
-#   END;'''
-#        )
+ #        UPDATE PRICE SET AVG_PRICE=(MIN_PRICE+MAX_PRICE)/2;
+ #  END;'''
+ #       )
 
 #c.execute('''CREATE TRIGGER AVGPRICES AFTER UPDATE ON PRICE 
-#     BEGIN
-#         UPDATE PRICE SET AVG_PRICE=(AVG_PRICE+(MIN_PRICE+MAX_PRICE)/2)/2;
+ #    BEGIN
+#        UPDATE PRICE SET AVG_PRICE=(AVG_PRICE+(MIN_PRICE+MAX_PRICE)/2)/2;
 #   END;'''
- #       )
+#       )
 
 
 @app.route('/')
@@ -139,15 +143,19 @@ def price_update():
        c_min=request.form.get('min_price')
        c_market=request.form.get('market')
        c_max=request.form.get('max_price')
-       conn = sqlite3.connect('FarmEasy.db')
-       e=conn.cursor()
-       e.execute("UPDATE PRICE SET MARKET=\'" + c_market+"\',"+"MIN_PRICE=\'" + c_min+"\',"+"MAX_PRICE=\'" + c_max+"\'"+"WHERE CROP_ID=\'" + c_id +"\'")
-       conn.commit()
-       rows=e.execute('SELECT * FROM PRICE')
-       rows=rows.fetchall()
-       conn.commit()
-       conn.close()
-       return redirect(url_for('price'))
+       if int(c_min) >100:
+         conn = sqlite3.connect('FarmEasy.db')
+         e=conn.cursor()
+         e.execute("UPDATE PRICE SET MARKET=\'" + c_market+"\',"+"MIN_PRICE=\'" + c_min+"\',"+"MAX_PRICE=\'" + c_max+"\'"+"WHERE CROP_ID=\'" + c_id +"\'")
+         conn.commit()
+         rows=e.execute('SELECT * FROM PRICE')
+         rows=rows.fetchall()
+         conn.commit()
+         conn.close()
+         return redirect(url_for('price'))
+       else:
+         return redirect(url_for('price'))
+
        
 
 @app.route('/price/delete/<id>',methods = ['POST', 'GET'] )
@@ -172,8 +180,6 @@ def cropdesc(id):
       rows=rows.fetchall()
       sub=e.execute("SELECT * FROM SUBCROP WHERE SUBCROP_ID IN (SELECT S1.SUBCROP_ID FROM SUBCROP S1,SUBCROPS_FOR_CROP SS WHERE S1.SUBCROP_ID=SS.SUBCROP_ID AND SS.CROP_ID=\'" + id +"\')")
       sub=sub.fetchall()
-      print(rows)
-      print(sub)
       return render_template('crop_decription.html', des=rows,sdes=sub)
 
 
@@ -196,13 +202,15 @@ def addcrop():
        try:
          conn = sqlite3.connect('FarmEasy.db')
          e=conn.cursor()
-         e.execute('INSERT INTO CROP (CROP_ID,CROP_NAME,CROP_IMG,CROP_DURATION,CROP_REGION,CROP_TEMP,CROP_IRRIGATION,CROP_SOIL,CROP_DESC) VALUES(?,?,?,?,?,?,?,?,?)',(crop_id,crop_name,crop_img,crop_duration,crop_region,crop_temp,crop_irrigation,crop_soil,crop_desc))          
+         e.execute('INSERT INTO CROP (CROP_ID,CROP_NAME,CROP_IMG,CROP_DURATION,CROP_REGION,CROP_TEMP,CROP_IRRIGATION,CROP_SOIL,CROP_DESC) VALUES(?,?,?,?,?,?,?,?,?)',
+         (crop_id,crop_name,crop_img,crop_duration,crop_region,crop_temp,crop_irrigation,crop_soil,crop_desc))          
          conn.commit()
          for subcrop in subcrops:
             e.execute('INSERT INTO SUBCROPS_FOR_CROP (CROP_ID,SUBCROP_ID) VALUES(?,?)',(crop_id,subcrop))
             conn.commit()
          e.execute('INSERT INTO FERTILIZER (FERTILIZER_ID,ORG_FERTILIZER,CHE_FERTILIZER) VALUES(?,?,?)',(crop_id,crop_of,crop_cf))
-         e.execute('INSERT INTO PRICE (CROP_ID,CROP_IMG,CROP_NAME,VARUTY,LOCATION,MARKET,MIN_PRICE,MAX_PRICE) VALUES(?,?,?,?,?,?,?,?)',(crop_id,crop_img,crop_name,'LOCAL',crop_region,' ','0','0'))
+         e.execute('INSERT INTO PRICE (CROP_ID,CROP_IMG,CROP_NAME,VARUTY,LOCATION,MARKET,MIN_PRICE,MAX_PRICE) VALUES(?,?,?,?,?,?,?,?)',
+         (crop_id,crop_img,crop_name,'LOCAL',crop_region,' ','0','0'))
          conn.commit()
          conn.close()
          return redirect(url_for('dashboard'))
@@ -253,8 +261,33 @@ def newsadd():
       conn.commit()
       conn.close()
       return redirect(url_for('news'))
-      
 
+@app.route('/land',methods = ['POST', 'GET'])
+def land():
+   conn = sqlite3.connect('FarmEasy.db')
+   c=conn.cursor()
+   rows=c.execute('SELECT * FROM LAND').fetchall()
+   print(rows)
+   conn.commit()
+   conn.close()
+   return render_template('land.html', land=rows) 
+
+@app.route('/land/add',methods = ['POST', 'GET'])
+def addland():
+   if request.method == 'POST':
+      LandName=request.form.get('landname')
+      Land_image=request.form.get('landimage')
+      Location=request.form.get('location')
+      Acres=request.form.get('acres')
+      land_description=request.form.get('landdescription')
+      Phone=request.form.get('phone')
+      Price=request.form.get('price')
+      conn = sqlite3.connect('FarmEasy.db')
+      c=conn.cursor()
+      c.execute('INSERT INTO LAND (LAND_IMG,TITLE,LOCATION,ACRE,DESC,PHONE,PRICE) VALUES(?,?,?,?,?,?,?)',(Land_image,LandName,Location,Acres,land_description,Phone,Price))
+      conn.commit()
+      conn.close()
+      return redirect(url_for('dashboard'))
 
 
 conn.commit()
